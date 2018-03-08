@@ -1,0 +1,28 @@
+{
+  "name": "euv",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "env DEBUG=true webpack-dev-server --config build/webpack.example.ts --inline --progress --port=3000",
+    "build": "webpack --config build/webpack.example.ts"
+  },
+  "author": "WittBulter (nanazuimeng123@gmail.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^9.4.6",
+    "html-webpack-plugin": "^2.30.0",
+    "ts-loader": "^3.5.0",
+    "vue": "^2.5.13",
+    "vue-loader": "13.0.4",
+    "vue-template-compiler": "^2.5.13",
+    "webpack": "3.4.1",
+    "webpack-dev-server": "2.6.1"
+  },
+  "dependencies": {
+    "inversify": "^4.11.1",
+    "reflect-metadata": "^0.1.12",
+    "typescript": "^2.7.2",
+    "vue-class-component": "^6.2.0"
+  }
+}
