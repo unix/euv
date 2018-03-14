@@ -23,7 +23,7 @@ install:
 
 script:
   - /bin/bash build/lint-commits.sh
-#  - npm run build
+  - npm run build
 
 #after_success:
 #  - npm run cover:hook
