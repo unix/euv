@@ -1,7 +1,5 @@
-import { inject, injectable } from 'inversify'
 import { User } from './user.service'
 
-@injectable()
 export class Logger {
   
   private messages: string[] = []
@@ -11,7 +9,7 @@ export class Logger {
   }
   
   constructor(
-    @inject('User') private user: User,
+    private user: User,
   ) {
   }
   
@@ -20,7 +18,7 @@ export class Logger {
   }
   
   debug(): void {
-    console.log(123, this.user.k)
+    console.log(123, this.user)
     this.messages.forEach(msg => Logger.print(msg))
   }
   

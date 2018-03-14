@@ -24,16 +24,14 @@
     "html-webpack-plugin": "^2.30.0",
     "husky": "^0.14.3",
     "ts-loader": "^3.5.0",
-    "vue": "^2.5.13",
+    "vue": "^2.5.3",
     "vue-loader": "13.0.4",
-    "vue-template-compiler": "^2.5.13",
+    "vue-template-compiler": "^2.5.3",
     "webpack": "3.4.1",
     "webpack-dev-server": "2.6.1"
   },
   "dependencies": {
-    "inversify": "^4.11.1",
     "reflect-metadata": "^0.1.12",
-    "typescript": "^2.7.2",
-    "vue-class-component": "^6.2.0"
+    "typescript": "^2.7.2"
   }
 }

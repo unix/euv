@@ -1,20 +1,16 @@
-import Vue from 'vue'
-import App from './welcome.vue'
 import 'reflect-metadata'
-import { Logger } from './log.service'
-import { User } from './user.service'
-import { Container } from 'inversify'
+import Vue from 'vue'
+import { Container } from './../src/container'
 
-const container = new Container()
-container.bind<Logger>('Logger').to(Logger)
-container.bind<User>('User').to(User)
-container.bind<App>('App').to(App)
-console.log(container.get<Logger>('Logger').debug())
+import { binds } from './binds'
+new Container().bind(binds)
+
+import WelcomeComponent from './welcome'
 
 // mount
 new Vue({
   el: '#app',
-  render: h => h(App, {
+  render: h => h(WelcomeComponent, {
     props: { propMessage: 'World' },
   }),
 })
