@@ -1,28 +1,37 @@
 import * as Interface from './interfaces'
-import * as Logger from './utils/logger'
-import * as Information from './constants/information'
+import { logger } from './utils'
+import { information } from './constants'
 
 export class Container {
   
-  private instanceMap: Interface.InstanceMap
-  private con: Interface.$Container = (<any>window).$Container
+  private instanceMap: Interface.InstanceMap = {}
+  // private con: Interface.$Container = (<any>window).$Container
+  private set con(val: Interface.$Container) {
+    window.$Container = val
+  }
+  
+  private get con(): Interface.$Container {
+    return window.$Container
+  }
   
   constructor() {
   }
   
-  bind(binds: Interface.Binds): void {
-    this.init()
+  bind(binds?: Interface.Binds): void {
   }
   
-  private init(): void {
+  init(): Interface.$Container {
+    if (window.$Container) return window.$Container
     this.con = {
       instances: this.instanceMap,
-      findInstance: this.findInstance,
-      saveInstance: this.saveInstance,
+      findInstance: this.findInstance.bind(this),
+      saveInstance: this.saveInstance.bind(this),
     }
+    return this.con
   }
   
   private findInstance(name: string): Interface.ServiceInstance {
+    console.log(this.instanceMap[name])
     return this.instanceMap[name] || null
   }
   
@@ -30,12 +39,14 @@ export class Container {
     return funcs.map(func => {
       const name: string = func.name
       if (this.findInstance(name)) {
-        return Logger.warning(Information.WARNING_CLASS_NAME_REPEAT, name)
+        return logger.warning(information.WARNING_CLASS_NAME_REPEAT, name)
       }
-      this.instanceMap[name] = {
-        name, copy: new func(),
-        dependencies: 0,
-      }
+      this.instanceMap = Object.assign({}, this.instanceMap, {
+        [name]: {
+          name, copy: new func(),
+          dependencies: 0,
+        },
+      })
       return this.instanceMap[name].copy
     })
   }

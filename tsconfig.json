@@ -21,7 +21,9 @@
       "./typings"
     ]
   },
-  "files": ["./src/component.ts"],
+  "files": [
+    "./src/annotations/component.ts"
+  ],
   "compileOnSave": false,
   "exclude": [
     "node_modules",

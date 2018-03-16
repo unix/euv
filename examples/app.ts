@@ -1,11 +1,10 @@
 import 'reflect-metadata'
 import Vue from 'vue'
 import { Container } from './../src/container'
+// import { binds } from './binds'
+new Container().init()
 
-import { binds } from './binds'
-new Container().bind(binds)
-
-import WelcomeComponent from './welcome'
+import { WelcomeComponent } from './welcome'
 
 // mount
 new Vue({
