@@ -1,7 +1,6 @@
-import 'reflect-metadata'
-import { Component } from '../src/component'
+// import 'reflect-metadata'
+import { Component } from '../src/annotations/component'
 import { Logger } from './log.service'
-import { User } from './user.service'
 
 @Component({
   props: {
@@ -9,14 +8,14 @@ import { User } from './user.service'
   },
   components: {},
 })
-export default class WelcomeComponent {
+export class WelcomeComponent {
 
   propMessage: string
 
   constructor(
     private logger: Logger,
   ) {
-    console.log(123, this.logger)
+    console.log('inject logger:', this.logger)
   }
 
   mounted(): void {
