@@ -1,29 +1,28 @@
-import { Vue, VueConstructor } from 'vue/types/vue'
 
-export type Binds = {
+export type ServiceTables = {
   [key: string]: new (...args: any[]) => any,
 }
 
-export type ServiceInstance = {
-  name: string,
-  copy: any,
-  dependencies: number,
+
+export type ServicePool = {
+  [key: string]: CollectionFactory,
 }
 
-export type InstanceMap = {
-  [key: string]: ServiceInstance,
+export interface CollectionFactory {
+  instance: any,
+  isInstantiated: () => boolean,
 }
 
-export type $Container = {
-  instances: InstanceMap,
-  findInstance: (name: string) => ServiceInstance,
-  saveInstance: (instance: any) => void,
+export interface ContainerFactory {
+  findOne: (serviceName: string) => CollectionFactory,
+  append: (name: string, serviceFactory: new (...args: any[]) => any) => void,
+  has: (serviceName: string) => boolean,
 }
 
 
 declare global {
   interface Window {
-    $Container?: $Container,
+    $Container?: any,
   }
 }
 
