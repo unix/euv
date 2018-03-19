@@ -1,5 +1,5 @@
 import { User } from './user.service'
-import { Injectable } from '../src/annotations/injectable'
+import { Injectable } from '../../src/annotations/injectable'
 
 @Injectable()
 export class Logger {
@@ -20,7 +20,6 @@ export class Logger {
   }
   
   debug(): void {
-    this.user.hi()
     this.messages.forEach(msg => Logger.print(msg))
   }
   

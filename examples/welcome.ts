@@ -1,6 +1,6 @@
 // import 'reflect-metadata'
 import { Component } from '../src/annotations/component'
-import { Logger } from './log.service'
+import { Logger } from './services/log.service'
 
 @Component({
   props: {
@@ -23,8 +23,8 @@ export class WelcomeComponent {
   }
 
   greet(): void {
-    this.logger.append('haha')
-    this.logger.debug()
+    // this.logger.append('haha')
+    // this.logger.debug()
     // console.log(this.propMessage)
   }
 

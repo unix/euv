@@ -1,6 +1,6 @@
-import { Injectable } from '../src/annotations/injectable'
-import { Logger } from './log.service'
-import { Optional } from '../src/annotations/optional'
+import { Injectable } from '../../src/annotations/injectable'
+// import { Logger } from './log.service'
+import { Optional } from '../../src/annotations/optional'
 
 // @Injectable()
 export class User {
@@ -8,7 +8,7 @@ export class User {
   k: string = '1'
   
   constructor(
-    @Optional() private logger: Logger,
+    // @Optional() private logger: Logger,
   ) {
   }
   
