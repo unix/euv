@@ -19,6 +19,7 @@ export class HelloComponent {
 ```
 
 2. **dependence on abstraction** is better than dependence and entity:
+
 ```typescript
 @Component(...)
 export class HelloComponent {
@@ -31,8 +32,10 @@ export class HelloComponent {
     this.apis.requestBannerImages()
   }
 }
+```
 
 3. add service dependency injection for Vue
+
 ```typescript
 @Injectable()
 export class LoggerService {
