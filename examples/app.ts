@@ -1,13 +1,13 @@
 import 'reflect-metadata'
 import Vue from 'vue'
-import { Container } from './../src/container'
+import { Container } from '../src/container/container'
 import { binds } from  './binds'
-const tables = new Container(binds).tables()
+const container = new Container(binds)
 
 // mount
 new Vue({
   el: '#app',
-  render: h => h(tables.app, {
+  render: h => h(container.findOne('app').vueComponent, {
     props: { propMessage: 'World' },
   }),
 })

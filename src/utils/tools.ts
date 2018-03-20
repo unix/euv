@@ -1,7 +1,7 @@
 import { ContainerFactory } from '../interfaces'
 
 export const tools = {
-  assignChild: (source: object, child: string, val: object): object => {
+  assignChild: <T>(source: T, child: string, val: object): T => {
     return Object.assign({}, source, {
       [child]: Object.assign({}, source[child], val),
     })

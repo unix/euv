@@ -4,7 +4,7 @@ import { metadata } from '../constants'
 import { tools } from '../utils'
 
 const componentFactory = (options?: ComponentOptions<Vue>) =>
-(target: new (...args: any[]) => any): VueConstructor<Vue> => {
+(target: new (...args: any[]) => any): any => {
   
   const types: any[] = Reflect.getMetadata(metadata.DESIGN_PARAM_TYPES, target)
   
@@ -34,11 +34,7 @@ const componentFactory = (options?: ComponentOptions<Vue>) =>
   //   data: () => extras.data,
   //   template: '<p>123</p>',
   // })
-  const Extended: VueConstructor<Vue> = Vue.extend({ template: '<p>123</p>' })
-  return (() => {
-    console.log(tools.findContainer())
-    return Extended
-  })()
+  return target
 }
 
 export const Component = (options?: ComponentOptions<Vue>): (c: new (...args: any[]) => any)

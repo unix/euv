@@ -10,6 +10,8 @@ export type ServicePool = {
 
 export interface CollectionFactory {
   instance: any,
+  vueComponent: any,
+  factory: new (...args: any[]) => any,
   isInstantiated: () => boolean,
 }
 
