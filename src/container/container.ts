@@ -38,7 +38,11 @@ export class Container implements ContainerFactory {
     return !!this.instancePool[name]
   }
   
-  tables(): ServiceTables {
+  entries(): Array<{ [key: string]: CollectionFactory }> {
+    return Object.keys(this.instancePool).map(name => ({ [name]: this.instancePool[name] }))
+  }
+  
+  nativeTables(): ServiceTables {
     return this.serviceTables
   }
   

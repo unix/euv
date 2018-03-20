@@ -1,4 +1,4 @@
-import { CollectionFactory, ContainerFactory } from '../interfaces'
+import { CollectionFactory, ContainerFactory, ServiceTables } from '../interfaces'
 import { ComponentOptions } from 'vue'
 import Vue from 'vue'
 import { metadata } from '../constants'
@@ -19,6 +19,9 @@ export class Collection implements CollectionFactory {
     if (!this._instance) this.init()
     return this._vueComponent
   }
+  get vueComponentOptions(): any {
+    return this.componentOptions || {}
+  }
   
   constructor(
     public factory: new (...args: any[]) => any,
@@ -26,6 +29,7 @@ export class Collection implements CollectionFactory {
     private container: ContainerFactory,
   ) {
     this.componentOptions = Reflect.getMetadata(metadata.COMPONENT_IDENTIFY, factory)
+    this.updateDependencies()
   }
   
   isInstantiated(): boolean {
@@ -38,15 +42,29 @@ export class Collection implements CollectionFactory {
   
   private init(): void {
     if (!this.dependencies.length) return this.updateCollection()
+    // const instances: any[] = this.dependencies.map(dep => this.container.findOne(dep).instance)
     const instances: any[] = this.dependencies.map(dep => this.container.findOne(dep).instance)
     return this.updateCollection(instances)
   }
   
   private updateCollection(instances?: any[]): void {
-    this._instance = new this.factory(instances)
-    if (this.isComponent()) {
-      this._vueComponent = new Mutation(this).toVueComponent()
+    if (!this.isComponent()) {
+      this._instance = new this.factory(instances)
+      return
     }
+    this._vueComponent = new Mutation(this, instances).toVueComponent()
+    this._instance = class None {}
+  }
+  
+  private updateDependencies(): void {
+    const types: any[] = Reflect.getMetadata(metadata.HOST_PARAM_TYPES, this.factory) || []
+    const nativeTables: ServiceTables = this.container.nativeTables()
+    this.dependencies = Object.keys(nativeTables)
+    .map(name => {
+      const type: any = nativeTables[name]
+      return types.find(t => t === type) ? name : null
+    })
+    .filter(r => r)
   }
   
 }

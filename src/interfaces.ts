@@ -11,6 +11,7 @@ export type ServicePool = {
 export interface CollectionFactory {
   instance: any,
   vueComponent: any,
+  vueComponentOptions: any,
   factory: new (...args: any[]) => any,
   isInstantiated: () => boolean,
 }
@@ -19,6 +20,8 @@ export interface ContainerFactory {
   findOne: (serviceName: string) => CollectionFactory,
   append: (name: string, serviceFactory: new (...args: any[]) => any) => void,
   has: (serviceName: string) => boolean,
+  entries: () => Array<{ [key: string]: CollectionFactory }>,
+  nativeTables: () => ServiceTables,
 }
 
 

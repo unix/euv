@@ -15,10 +15,10 @@ export class WelcomeComponent {
   constructor(
     private logger: Logger,
   ) {
-    console.log('inject logger:', this.logger)
   }
 
   mounted(): void {
+    console.log('inject logger:', this.logger)
     this.greet()
   }
 
