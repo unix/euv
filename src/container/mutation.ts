@@ -42,6 +42,8 @@ export class Mutation {
     if (!params || !params.length) return {}
     
     return params
-    .reduce((data, next, index) => Object.assign({}, data, { [next]: this.instances[index] }), {})
+    .reduce((data, next, index) => Object.assign({}, data, {
+      [next]: this.instances[index],
+    }), {})
   }
 }

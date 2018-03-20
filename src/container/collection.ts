@@ -42,7 +42,6 @@ export class Collection implements CollectionFactory {
   
   private init(): void {
     if (!this.dependencies.length) return this.updateCollection()
-    // const instances: any[] = this.dependencies.map(dep => this.container.findOne(dep).instance)
     const instances: any[] = this.dependencies.map(dep => this.container.findOne(dep).instance)
     return this.updateCollection(instances)
   }

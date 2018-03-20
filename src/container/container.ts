@@ -1,9 +1,7 @@
 import { logger } from '../utils/index'
-import { information, metadata } from '../constants/index'
+import { information } from '../constants/index'
 import { Collection } from './collection'
 import { CollectionFactory, ContainerFactory, ServicePool, ServiceTables } from '../interfaces'
-import { ComponentOptions } from 'vue'
-import Vue from 'vue'
 
 export class Container implements ContainerFactory {
   

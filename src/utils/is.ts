@@ -7,3 +7,4 @@ export const is = {
   
   vueMethod:  (name: string): boolean => typeof name === 'function',
 }
+

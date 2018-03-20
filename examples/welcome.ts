@@ -1,4 +1,3 @@
-// import 'reflect-metadata'
 import { Component } from '../src/annotations/component'
 import { Logger } from './services/log.service'
 
@@ -23,9 +22,6 @@ export class WelcomeComponent {
   }
 
   greet(): void {
-    // this.logger.append('haha')
-    // this.logger.debug()
-    // console.log(this.propMessage)
   }
 
 }
