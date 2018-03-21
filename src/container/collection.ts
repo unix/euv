@@ -23,6 +23,9 @@ export class Collection implements CollectionFactory {
   get vueComponentOptions(): any {
     return this.componentOptions || {}
   }
+  get bindingName(): string {
+    return this.name
+  }
   
   constructor(
     public factory: new (...args: any[]) => any,
@@ -52,7 +55,7 @@ export class Collection implements CollectionFactory {
       this._instance = new this.factory(instances)
       return
     }
-    this._vueComponent = new Mutation(this, instances).toVueComponent()
+    this._vueComponent = new Mutation(this, instances, this.container).toVueComponent()
     this._instance = class None {}
   }
   

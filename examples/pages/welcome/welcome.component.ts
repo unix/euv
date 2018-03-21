@@ -3,8 +3,14 @@ import { Logger } from '../../services/log.service'
 // import template from './welcome.component.html'
 
 @Component({
+  components: [
+    'login',
+  ],
   template: `
-  <p>...</p>
+  <div>
+    <p>...</p>
+    <login/>
+  </div>
   `,
 })
 export class WelcomeComponent {

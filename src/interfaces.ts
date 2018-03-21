@@ -5,7 +5,7 @@ export type EuvComponentOptions = {
   template?: string,
   styleUrls?: string[],
   styles?: string[],
-  components?: any,
+  components?: string[],
 }
 
 export type ServiceTables = {
@@ -22,6 +22,7 @@ export interface CollectionFactory {
   vueComponentOptions: any,
   factory: new (...args: any[]) => any,
   isInstantiated: () => boolean,
+  bindingName: string,
 }
 
 export interface ContainerFactory {
