@@ -2,6 +2,8 @@ import { logger } from '../utils/index'
 import { information } from '../constants/index'
 import { Collection } from './collection'
 import { CollectionFactory, ContainerFactory, ServicePool, ServiceTables } from '../interfaces'
+import Vue from 'vue'
+import { VueConstructor } from 'vue/types/vue'
 
 export class Container implements ContainerFactory {
   
@@ -42,6 +44,10 @@ export class Container implements ContainerFactory {
   
   nativeTables(): ServiceTables {
     return this.serviceTables
+  }
+  
+  VueHook(componentName: string): VueConstructor<Vue> {
+    return this.findOne(componentName).vueComponent
   }
   
 }

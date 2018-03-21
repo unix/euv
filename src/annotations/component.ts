@@ -1,9 +1,11 @@
-import Vue, { ComponentOptions } from 'vue'
-import { VueConstructor } from 'vue/types/vue'
+import 'reflect-metadata'
 import { metadata } from '../constants'
+import { EuvComponentOptions } from '../interfaces'
 
-const componentFactory = (options?: ComponentOptions<Vue>) =>
-(target: new (...args: any[]) => any): any => {
+export type ComponentTarget = new (...args: any[]) => any
+
+const componentFactory = (options?: EuvComponentOptions) =>
+(target: ComponentTarget): ComponentTarget => {
   
   const types: any[] = Reflect.getMetadata(metadata.DESIGN_PARAM_TYPES, target)
   
@@ -14,6 +16,5 @@ const componentFactory = (options?: ComponentOptions<Vue>) =>
   return target
 }
 
-export const Component = (options?: ComponentOptions<Vue>): (c: new (...args: any[]) => any)
-=> VueConstructor<Vue> => componentFactory(options)
+export const Component = (options?: EuvComponentOptions) => componentFactory(options)
 

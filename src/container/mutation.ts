@@ -1,6 +1,7 @@
-import { CollectionFactory } from '../interfaces'
+import { CollectionFactory, EuvComponentOptions } from '../interfaces'
 import { tools, is } from '../utils'
 import Vue from 'vue'
+import { ExtendedVue, VueConstructor } from 'vue/types/vue'
 
 export type Extras = {
   methods: object,
@@ -19,7 +20,7 @@ export class Mutation {
     this._prototype = collection.factory.prototype
   }
   
-  toVueComponent(): any {
+  toVueComponent(): VueConstructor<Vue> {
     const extras: Extras = Object.getOwnPropertyNames(this._prototype)
     .reduce((tree, key) => {
       const val: any = this._prototype[key]
@@ -32,9 +33,8 @@ export class Mutation {
   
     extras.data = () => Object.assign({}, extras.data, this.makeVueDatas())
   
-    return Vue.extend(Object.assign({}, extras, {
-      template: '<p>123</p>',
-    }))
+  
+    return Vue.extend(Object.assign({}, extras, this.makeVueExtra()))
   }
   
   private makeVueDatas(): any {
@@ -45,5 +45,12 @@ export class Mutation {
     .reduce((data, next, index) => Object.assign({}, data, {
       [next]: this.instances[index],
     }), {})
+  }
+  
+  private makeVueExtra(): any {
+    const options: EuvComponentOptions = this.collection.vueComponentOptions || {}
+    return {
+      template: options.template || '',
+    }
   }
 }

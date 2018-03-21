@@ -3,6 +3,7 @@ import { ComponentOptions } from 'vue'
 import Vue from 'vue'
 import { metadata } from '../constants'
 import { Mutation } from './mutation'
+import { VueConstructor } from 'vue/types/vue'
 
 
 export class Collection implements CollectionFactory {
@@ -15,7 +16,7 @@ export class Collection implements CollectionFactory {
     if (!this._instance) this.init()
     return this._instance
   }
-  get vueComponent(): any {
+  get vueComponent(): VueConstructor<Vue> {
     if (!this._instance) this.init()
     return this._vueComponent
   }

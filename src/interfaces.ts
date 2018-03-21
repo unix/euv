@@ -1,8 +1,16 @@
+import Vue from 'vue'
+import { VueConstructor } from 'vue/types/vue'
+
+export type EuvComponentOptions = {
+  template?: string,
+  styleUrls?: string[],
+  styles?: string[],
+  components?: any,
+}
 
 export type ServiceTables = {
   [key: string]: new (...args: any[]) => any,
 }
-
 
 export type ServicePool = {
   [key: string]: CollectionFactory,
@@ -10,7 +18,7 @@ export type ServicePool = {
 
 export interface CollectionFactory {
   instance: any,
-  vueComponent: any,
+  vueComponent: VueConstructor<Vue>,
   vueComponentOptions: any,
   factory: new (...args: any[]) => any,
   isInstantiated: () => boolean,

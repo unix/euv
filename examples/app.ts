@@ -7,7 +7,7 @@ const container = new Container(binds)
 // mount
 new Vue({
   el: '#app',
-  render: h => h(container.findOne('app').vueComponent, {
+  render: h => h(container.VueHook('app'), {
     props: { propMessage: 'World' },
   }),
 })
