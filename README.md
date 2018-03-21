@@ -4,11 +4,26 @@ IoC with Vue.
 (construction-in-progress, welcome contribution)
 
 ### Guide
-1. use vue with TypeScript:
+1. declare component and service in module
+
+ ```typescript
+ @Module({
+   providers: {
+     login: LoginComponent,
+     hello: HelloComponent,
+   },
+ })
+ export class AppModule {
+ }
+ ```
+
+2. use vue with TypeScript:
 ```typescript
 @Component({
-  templateUrl: '',
-  styleUrls: [''],
+  template: `
+  <p> <login/> </p>
+  `,
+  components: ['login']
 })
 export class HelloComponent {
   mounted(): void {
@@ -18,7 +33,7 @@ export class HelloComponent {
 
 ```
 
-2. **dependence on abstraction** is better than dependence and entity:
+3. **dependence on abstraction** is better than dependence and entity:
 
 ```typescript
 @Component(...)
@@ -34,7 +49,7 @@ export class HelloComponent {
 }
 ```
 
-3. add service dependency injection for Vue
+4. add service dependency injection for Vue
 
 ```typescript
 @Injectable()
@@ -50,5 +65,3 @@ export class AuthService {
   }
 }
 ```
-
-
