@@ -1,6 +1,7 @@
-import { CollectionFactory } from '../interfaces'
-import { tools, is } from '../utils'
 import Vue from 'vue'
+import { tools, is } from '../utils'
+import { VueConstructor } from 'vue/types/vue'
+import { CollectionFactory, ContainerFactory, EuvComponentOptions } from '../interfaces'
 
 export type Extras = {
   methods: object,
@@ -15,11 +16,12 @@ export class Mutation {
   constructor(
     private collection: CollectionFactory,
     private instances: any[],
+    private container: ContainerFactory,
   ) {
     this._prototype = collection.factory.prototype
   }
   
-  toVueComponent(): any {
+  toVueComponent(): VueConstructor<Vue> {
     const extras: Extras = Object.getOwnPropertyNames(this._prototype)
     .reduce((tree, key) => {
       const val: any = this._prototype[key]
@@ -31,10 +33,8 @@ export class Mutation {
     }, { methods: {}, data: {} })
   
     extras.data = () => Object.assign({}, extras.data, this.makeVueDatas())
-  
-    return Vue.extend(Object.assign({}, extras, {
-      template: '<p>123</p>',
-    }))
+    
+    return Vue.component(this.collection.bindingName, Object.assign({}, extras, this.makeVueExtra()))
   }
   
   private makeVueDatas(): any {
@@ -45,5 +45,20 @@ export class Mutation {
     .reduce((data, next, index) => Object.assign({}, data, {
       [next]: this.instances[index],
     }), {})
+  }
+  
+  private makeVueExtra(): any {
+    const options: EuvComponentOptions = this.collection.vueComponentOptions || {}
+    const components: object = (options.components || [])
+    .reduce((coms, next) => {
+      const com = this.container.findOne(next).vueComponent
+      if (!com) return coms
+      return Object.assign({}, coms, { [next]: com })
+    }, {})
+    return {
+      template: options.template || '',
+      name: this.collection.bindingName,
+      components,
+    }
   }
 }

@@ -12,7 +12,8 @@ export const tools = {
   },
   
   findConstructorParams: (func: any): string[] => {
-    return /\(\s*([\s\S]*?)\s*\)/.exec(func)[1].split(/\s*,\s*/)
+    const result: RegExpExecArray = /\(\s*([\s\S]*?)\s*\)/.exec(func)
+    return result && result.length ? result[1].split(/\s*,\s*/) : []
   },
   
   findContainer: (): ContainerFactory => {

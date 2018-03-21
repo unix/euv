@@ -3,6 +3,7 @@ import { ComponentOptions } from 'vue'
 import Vue from 'vue'
 import { metadata } from '../constants'
 import { Mutation } from './mutation'
+import { VueConstructor } from 'vue/types/vue'
 
 
 export class Collection implements CollectionFactory {
@@ -15,12 +16,15 @@ export class Collection implements CollectionFactory {
     if (!this._instance) this.init()
     return this._instance
   }
-  get vueComponent(): any {
+  get vueComponent(): VueConstructor<Vue> {
     if (!this._instance) this.init()
     return this._vueComponent
   }
   get vueComponentOptions(): any {
     return this.componentOptions || {}
+  }
+  get bindingName(): string {
+    return this.name
   }
   
   constructor(
@@ -51,7 +55,7 @@ export class Collection implements CollectionFactory {
       this._instance = new this.factory(instances)
       return
     }
-    this._vueComponent = new Mutation(this, instances).toVueComponent()
+    this._vueComponent = new Mutation(this, instances, this.container).toVueComponent()
     this._instance = class None {}
   }
   

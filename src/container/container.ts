@@ -1,23 +1,33 @@
 import { logger } from '../utils/index'
 import { information } from '../constants/index'
 import { Collection } from './collection'
-import { CollectionFactory, ContainerFactory, ServicePool, ServiceTables } from '../interfaces'
+import {
+  CollectionFactory, ContainerFactory, EuvModules, ModuleProviders, ServicePool,
+  ServiceTables,
+} from '../interfaces'
+import Vue from 'vue'
+import { VueConstructor } from 'vue/types/vue'
+import { metadata } from '../constants'
 
 export class Container implements ContainerFactory {
   
   private instancePool: ServicePool = {}
+  private providers: ModuleProviders
   
   constructor(
-    private serviceTables: ServiceTables,
+    private modules: EuvModules,
   ) {
     if (!window.$Container) window.$Container = this
-    this.init(serviceTables)
+    this.init(modules)
   }
   
-  private init(serviceTables: ServiceTables): void {
-    Object.keys(serviceTables).forEach(name => this.append(name, serviceTables[name]))
-  }
+  private init(modules: EuvModules): void {
+    this.providers = Reflect.getMetadata(metadata.MODULE_PROVIDERS_IDENTIFY, modules)
+    const keys: string[] = Object.keys(this.providers)
+    if (!keys || !keys.length) return logger.warning(information.WARNING_NOT_FOUND_PROVIDERS)
   
+    keys.forEach(key => this.append(key, this.providers[key]))
+  }
   
   findOne(name: string): CollectionFactory {
     if (!this.has(name)) {
@@ -41,7 +51,11 @@ export class Container implements ContainerFactory {
   }
   
   nativeTables(): ServiceTables {
-    return this.serviceTables
+    return this.providers
+  }
+  
+  VueHook(componentName: string): VueConstructor<Vue> {
+    return this.findOne(componentName).vueComponent
   }
   
 }

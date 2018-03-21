@@ -1,6 +1,6 @@
 import { metadata } from '../constants'
 
-export const Injectable = (options?: any) => (target: any): any => {
+export const Injectable = () => target => {
   
   const types: any[] = Reflect.getMetadata(metadata.DESIGN_PARAM_TYPES, target)
   
