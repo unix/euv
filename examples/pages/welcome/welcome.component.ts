@@ -1,4 +1,4 @@
-import { Component } from '../../../src/annotations/component'
+import { Component } from '../../../src/index'
 import { Logger } from '../../services/log.service'
 // import template from './welcome.component.html'
 

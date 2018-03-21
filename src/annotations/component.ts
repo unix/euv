@@ -2,10 +2,8 @@ import 'reflect-metadata'
 import { metadata } from '../constants'
 import { EuvComponentOptions } from '../interfaces'
 
-export type ComponentTarget = new (...args: any[]) => any
 
-const componentFactory = (options?: EuvComponentOptions) =>
-(target: ComponentTarget): ComponentTarget => {
+const componentFactory = (options?: EuvComponentOptions) => target => {
   
   const types: any[] = Reflect.getMetadata(metadata.DESIGN_PARAM_TYPES, target)
   

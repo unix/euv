@@ -1,6 +1,6 @@
-import { Injectable } from '../../src/annotations/injectable'
+import { Injectable } from '../../src/index'
 // import { Logger } from './log.service'
-import { Optional } from '../../src/annotations/optional'
+import { Optional } from '../../src/index'
 
 // @Injectable()
 export class User {

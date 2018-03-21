@@ -32,6 +32,15 @@ export interface ContainerFactory {
   nativeTables: () => ServiceTables,
 }
 
+export type ModuleProviders = {
+  [key: string]: new (...args: any[]) => any,
+}
+
+export type ModuleOptions = {
+  providers?: ModuleProviders,
+}
+
+export type EuvModules = new () => void
 
 declare global {
   interface Window {
