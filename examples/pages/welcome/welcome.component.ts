@@ -1,17 +1,12 @@
 import { Component } from '../../../src/index'
 import { Logger } from '../../services/log.service'
-// import template from './welcome.component.html'
+declare const require: any
 
 @Component({
   components: [
     'login',
   ],
-  template: `
-  <div>
-    <p>...</p>
-    <login/>
-  </div>
-  `,
+  template: require('./welcome.component.html'),
 })
 export class WelcomeComponent {
   
