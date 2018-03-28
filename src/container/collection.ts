@@ -11,7 +11,8 @@ export class Collection implements CollectionFactory {
   private _instance: any
   private _vueComponent: any
   private dependencies: string[] = []
-  private componentOptions: ComponentOptions<Vue>
+  readonly componentOptions: ComponentOptions<Vue>
+  
   get instance(): any {
     if (!this._instance) this.init()
     return this._instance

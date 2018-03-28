@@ -15,7 +15,7 @@ module.exports = {
     alias: {
       vue$: 'vue/dist/vue.esm.js',
     },
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.html'],
   },
   
   module: {
@@ -41,6 +41,19 @@ module.exports = {
       {
         test: /\.vue$/,
         use: ['vue-loader'],
+      }, {
+        test: /\.html$/,
+        loader: 'vue-html-loader?minimize=false',
+      }, {
+        test: /\.css$/,
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+            },
+          },
+        ],
       },
     ],
   },
