@@ -87,6 +87,17 @@ i hope it can bring you a different experience.
     }
   }
   ```
+  
+  
+  ### More
+  
+  - [recommended tsconfig](https://github.com/DhyanaChina/euv/blob/master/examples/tsconfig.json) 
+  
+  - [example](https://github.com/DhyanaChina/euv/tree/master/examples)
+  
+  
+ 
+   
 
 
 
