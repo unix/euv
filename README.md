@@ -1,67 +1,92 @@
-## euv
-IoC with Vue.
+## EUV
+IoC with Vue, **dependence on abstraction** is better than dependence and entity.
+
+most developers prefer this design pattern, unfortunately there are no such libs in the Vue community, EUV is one of my attempts,
+i hope it can bring you a different experience.
 
 (construction-in-progress, welcome contribution)
 
 ### Guide
-1. declare component and service in module
 
- ```typescript
- @Module({
-   providers: {
-     login: LoginComponent,
-     hello: HelloComponent,
-   },
- })
- export class AppModule {
- }
- ```
+- install
 
-2. use vue with TypeScript:
-```typescript
-@Component({
-  template: `
-  <p> <login/> </p>
-  `,
-  components: ['login']
-})
-export class HelloComponent {
-  mounted(): void {
-    alert('hello')
+  `npm i --save euv`
+
+- start vue
+
+  ```typescript
+  // in app.ts
+
+  import 'reflect-metadata'
+  import Vue from 'vue'
+  import { Container } from 'euv'
+  import { AppModule } from  './module'
+  const container = new Container(AppModule)
+
+  new Vue({
+    el: '#app',
+    render: h => h(container.VueHook('app')),
+  })
+
+
+  // in ./module.ts, collecting dependencies for container:
+  import { WelcomeComponent } from './app.component'
+
+  @Module({
+    providers: {
+      app: WelcomeComponent,
+    },
+  })
+  export class AppModule {
   }
-}
 
-```
+  ```
 
-3. **dependence on abstraction** is better than dependence and entity:
+- use annotations and class style in Vue
 
-```typescript
-@Component(...)
-export class HelloComponent {
+  ```typescript
+  @Component({
+    template: `<p>{{ message }}</p>`
+  })
+  export class AppComponent {
 
-  constructor(
-    private apis: ApiService,
-  ) {
+    message: string = 'hi!'
+
   }
-  mounted(): void {
-    this.apis.requestBannerImages()
+  ```
+
+- inject style
+
+  ```typescript
+  @Component(...)
+  export class HelloComponent {
+
+    constructor(
+      private apis: ApiService,
+    ) {
+    }
+    mounted(): void {
+      this.apis.requestBannerImages()
+    }
   }
-}
-```
+  ```
 
-4. add service dependency injection for Vue
+- simply build any services
 
-```typescript
-@Injectable()
-export class LoggerService {
-}
-
-@Injectable()
-export class AuthService {
-
-  constructor(
-    private logger: LoggerService,
-  ) {
+  ```typescript
+  @Injectable()
+  export class LoggerService {
   }
-}
-```
+
+  @Injectable()
+  export class AuthService {
+
+    constructor(
+      private logger: LoggerService,
+    ) {
+    }
+  }
+  ```
+
+
+
