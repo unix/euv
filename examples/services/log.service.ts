@@ -23,6 +23,10 @@ export class Logger {
     this.messages.forEach(msg => Logger.print(msg))
   }
   
+  world(): string {
+    return 'world'
+  }
+  
 }
 
 
