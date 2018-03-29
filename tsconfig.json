@@ -7,22 +7,20 @@
     ],
     "module": "es2015",
     "moduleResolution": "node",
-    "outDir": ".",
+    "outDir": "./dist",
     "sourceMap": true,
     "removeComments": true,
     "noImplicitAny": false,
     "preserveConstEnums": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "jsx": "preserve",
-    "jsxFactory": "h",
     "typeRoots": [
       "node_modules/@types",
       "./typings"
     ]
   },
   "files": [
-    "./src/annotations/component.ts"
+    "./src/index.ts"
   ],
   "compileOnSave": false,
   "exclude": [
