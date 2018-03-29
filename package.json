@@ -9,7 +9,8 @@
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "start": "env DEBUG=true webpack-dev-server --config build/webpack.example.ts --inline --progress --port=3000",
     "lint": "tslint -c tslint.json -p tsconfig.json",
-    "build": "npm run lint && tsc"
+    "build": "npm run lint && tsc",
+    "clean": "rm -rf ./dist"
   },
   "config": {
     "commitizen": {
