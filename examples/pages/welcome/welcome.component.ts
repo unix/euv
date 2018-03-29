@@ -1,28 +1,25 @@
 import { Component } from '../../../src/index'
 import { Logger } from '../../services/log.service'
+import { User } from '../../services/user.service'
 declare const require: any
 
 @Component({
-  components: [
-    'login',
-  ],
+  components: ['login' ],
   template: require('./welcome.component.html'),
 })
 export class WelcomeComponent {
   
-  propMessage: string
+  message: string = 'hello'
   
   constructor(
     private logger: Logger,
+    private user: User,
   ) {
+    this.message += '123'
   }
   
-  mounted(): void {
-    console.log('inject logger:', this.logger)
-    this.greet()
-  }
-  
-  greet(): void {
+  get name(): any {
+    return this.user.name
   }
   
 }

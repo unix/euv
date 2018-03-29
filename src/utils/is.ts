@@ -5,6 +5,8 @@ export const is = {
   
   vueHook: (name: string): boolean => !!hooks.VUE_HOOKS[name],
   
-  vueMethod:  (name: string): boolean => typeof name === 'function',
+  vueMethod: (descriptor: PropertyDescriptor): boolean => typeof descriptor.value === 'function',
+  
+  vueComputed: (descriptor: PropertyDescriptor): boolean => !!(descriptor.get || descriptor.set),
 }
 
