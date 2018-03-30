@@ -2,15 +2,17 @@ import { logger } from '../utils/index'
 import { information } from '../constants/index'
 import { Collection } from './collection'
 import {
-  CollectionFactory, ContainerFactory, EuvModules, ModuleProviders, ServicePool,
+  CollectionFactory, ContainerFactory, EuvModules, ModuleProviders, OptionalFactory, ServicePool,
   ServiceTables,
 } from '../interfaces'
 import Vue from 'vue'
 import { VueConstructor } from 'vue/types/vue'
 import { metadata } from '../constants'
+import { Optional } from './optional'
 
 export class Container implements ContainerFactory {
   
+  optionalPool: OptionalFactory = new Optional()
   private instancePool: ServicePool = {}
   private providers: ModuleProviders
   

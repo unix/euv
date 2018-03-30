@@ -11,6 +11,7 @@ export enum VUE_HOOKS {
   activated = 'activated',
   deactivated = 'deactivated',
   render = 'render',
+  computed = 'computed',
   errorCaptured = 'errorCaptured',
 }
 
