@@ -1,8 +1,10 @@
 ## EUV
-基于 Vue 的控制反转。 **依赖于抽象** 优于依赖于实体.
+基于 Vue 的控制反转 ——— **依赖于抽象** 优于依赖于实体.
 
 很多开发者都知道这种设计模式，但在 Vue 社区里却不多见，甚至没有一个可以使用的库。本项目是使用 TypeScript 与控制反转的模式来编写 Vue 的尝试，
 有关更多的设计细节和语法，欢迎 [讨论](https://github.com/DhyanaChina/euv/issues/new)。
+
+[English doc](README_US.md)
 
 ### 起步
 
@@ -92,9 +94,9 @@
 
 ### 更多
   
-- [recommended tsconfig](https://github.com/DhyanaChina/euv/blob/master/examples/tsconfig.json) 
+- [推荐的 tsconfig 配置](https://github.com/DhyanaChina/euv/blob/master/examples/tsconfig.json) 
   
-- [example](https://github.com/DhyanaChina/euv/tree/master/examples)
+- [示例](https://github.com/DhyanaChina/euv/tree/master/examples)
   
   
  
