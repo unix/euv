@@ -6,4 +6,8 @@ import { Component } from '../../../src/index'
   `,
 })
 export class LoginComponent {
+  
+  constructor() {
+  }
+  
 }

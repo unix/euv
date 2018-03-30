@@ -1,19 +1,21 @@
 ## EUV
-基于 Vue 的控制反转。 **依赖于抽象** 优于依赖于实体.
+IoC with Vue, **dependence on abstraction** is better than dependence and entity.
 
-很多开发者都知道这种设计模式，但在 Vue 社区里却不多见，甚至没有一个可以使用的库。本项目是使用 TypeScript 与控制反转的模式来编写 Vue 的尝试，
-有关更多的设计细节和语法，欢迎 [讨论](https://github.com/DhyanaChina/euv/issues/new)。
+most developers prefer this design pattern, unfortunately there are no such libs in the Vue community, EUV is one of my attempts,
+i hope it can bring you a different experience.
 
-### 起步
+(construction-in-progress, welcome contribution)
 
-- 安装
+### Guide
+
+- install
 
   `npm i --save euv`
 
-- 开始使用 euv
+- start vue
 
   ```typescript
-  // 在 app.ts 文件中:
+  // in app.ts
 
   import 'reflect-metadata'
   import Vue from 'vue'
@@ -27,7 +29,7 @@
   })
 
 
-  // 在 ./module.ts 文件中收集容器的依赖:
+  // in ./module.ts, collecting dependencies for container:
   import { WelcomeComponent } from './app.component'
 
   @Module({
@@ -40,7 +42,7 @@
 
   ```
 
-- 使用注解与类的方式来编写 Vue
+- use annotations and class style in Vue
 
   ```typescript
   @Component({
@@ -53,7 +55,7 @@
   }
   ```
 
-- 注入一个服务
+- inject style
 
   ```typescript
   @Component(...)
@@ -69,7 +71,7 @@
   }
   ```
 
-- 服务之间也可以互相注入
+- simply build any services
 
   ```typescript
   @Injectable()
@@ -85,20 +87,20 @@
     }
   }
   ```
-  
+
 <br/>
 <br/>
 <br/>
 
-### 更多
-  
-- [recommended tsconfig](https://github.com/DhyanaChina/euv/blob/master/examples/tsconfig.json) 
-  
+### More
+
+- [recommended tsconfig](https://github.com/DhyanaChina/euv/blob/master/examples/tsconfig.json)
+
 - [example](https://github.com/DhyanaChina/euv/tree/master/examples)
-  
-  
- 
-   
+
+
+
+
 
 
 
