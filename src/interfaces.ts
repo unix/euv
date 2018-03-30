@@ -42,6 +42,11 @@ export type ModuleOptions = {
 
 export type EuvModules = new () => void
 
+export type InjectTagIdentifier = {
+  name: string,
+  index: number,
+}
+
 declare global {
   interface Window {
     $Container?: any,
