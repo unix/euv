@@ -88,6 +88,32 @@ i hope it can bring you a different experience.
   }
   ```
 
+- use inject token
+
+  ```typescript
+  // declare service
+  @Injectable()
+  export class LoggerService {}
+
+  // declare module
+  @Module({
+    providers: { logger: LoggerService },
+  })
+  export class AppModule {
+  }
+
+  // 'Inject' annotation will inject Logger service with 'logger' sign.
+  @Injectable()
+  export class AuthService {
+
+    constructor(
+      @Inject('logger') private logger: any,
+    ) {
+    }
+  }
+```
+
+
 <br/>
 <br/>
 <br/>
