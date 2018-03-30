@@ -34,13 +34,11 @@ export class Mutation {
       if (is.constructor(key)) return tree
       if (is.vueHook(key)) return Object.assign(tree, next)
       if (is.vueMethod(descriptor)) return tools.assignChild(tree, 'methods', next)
-      if (is.vueComputed(descriptor)) return tools.assignChild(tree, 'computed', {
-        [key]: { get: descriptor.get, set: descriptor.set },
-      })
       return tools.assignChild(tree, 'data', next)
-    }, { methods: {}, data: {}, computed: {} })
-    extras.data = () => Object.assign({}, extras.data, this._depDatas)
-    
+    }, { methods: {}, data: { userw: 1 }, computed: {} })
+  
+    extras.data = () => Object.assign({}, extras.data, this._depDatas, { userw: '222' })
+  
     return Vue.component(this.collection.bindingName, Object.assign({}, extras, this.makeVueExtra()))
   }
   
@@ -52,7 +50,7 @@ export class Mutation {
       if (!component) return coms
       return Object.assign({}, coms, { [next]: component })
     }, {})
-    
+  
     return {
       template: options.template || '',
       name: this.collection.bindingName,
