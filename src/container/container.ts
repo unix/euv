@@ -22,7 +22,7 @@ export class Container implements ContainerFactory {
   }
   
   private init(modules: EuvModules): void {
-    this.providers = Reflect.getMetadata(metadata.MODULE_PROVIDERS_IDENTIFY, modules)
+    this.providers = Reflect.getMetadata(metadata.MODULE_PROVIDERS_IDENTIFIER, modules)
     const keys: string[] = Object.keys(this.providers)
     if (!keys || !keys.length) return logger.warning(information.WARNING_NOT_FOUND_PROVIDERS)
   

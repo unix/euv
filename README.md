@@ -87,7 +87,32 @@
     }
   }
   ```
-  
+
+- 使用令牌注入
+
+  ```typescript
+  // 声明服务
+  @Injectable()
+  export class LoggerService {}
+
+  // 声明模块
+  @Module({
+    providers: { logger: LoggerService },
+  })
+  export class AppModule {
+  }
+
+  // Inject 会通过 'logger' 标记自动帮你注入 Logger 服务
+  @Injectable()
+  export class AuthService {
+
+    constructor(
+      @Inject('logger') private logger: any,
+    ) {
+    }
+  }
+  ```
+
 <br/>
 <br/>
 <br/>

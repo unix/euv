@@ -5,8 +5,10 @@ export const enum metadata {
   
   HOST_PARAM_TYPES = 'host:paramtypes',
   
-  COMPONENT_IDENTIFY = 'component_identify',
+  COMPONENT_IDENTIFIER = 'component_identifier',
 
-  MODULE_PROVIDERS_IDENTIFY = 'module_providers_identify',
+  MODULE_PROVIDERS_IDENTIFIER = 'module_providers_identifier',
+  
+  INJECT_TOKEN_IDENTIFIER = 'inject_token_identifier',
 }
 

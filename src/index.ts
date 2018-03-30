@@ -7,4 +7,5 @@ export {
   Optional,
   Component,
   Injectable,
+  Inject,
 } from './annotations'

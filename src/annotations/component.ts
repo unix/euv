@@ -9,7 +9,7 @@ const componentFactory = (options?: EuvComponentOptions) => target => {
   
   Reflect.defineMetadata(metadata.HOST_PARAM_TYPES, types, target)
   
-  Reflect.defineMetadata(metadata.COMPONENT_IDENTIFY, options || {}, target)
+  Reflect.defineMetadata(metadata.COMPONENT_IDENTIFIER, options || {}, target)
   
   return target
 }
