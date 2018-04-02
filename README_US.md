@@ -126,6 +126,21 @@ i hope it can bring you a different experience.
   }
   ```
 
+- Prop Casing
+
+  ```typescript
+  // declare once only. the type will be checked.
+  // support default value.
+
+  @Component({ ... })
+  export class Demo {
+
+    @Prop() username: string = 'witt'
+
+  }
+  ```
+
+
 <br/>
 <br/>
 <br/>

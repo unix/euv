@@ -128,6 +128,20 @@
     }
   ```
 
+- Prop 传递数据
+
+  ```typescript
+  // 只需要声明一次类型，类型也会得到验证
+  // 声明默认值后会自动附加在 Vue 的 Props 中
+
+  @Component({ ... })
+  export class Demo {
+
+    @Prop() username: string = 'witt'
+
+  }
+  ```
+
 <br/>
 <br/>
 <br/>

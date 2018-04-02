@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import { tools, is } from '../utils'
 import { VueConstructor } from 'vue/types/vue'
-import { CollectionFactory, ContainerFactory, EuvComponentOptions } from '../interfaces'
+import { CollectionFactory, ContainerFactory, EuvComponentOptions, EuvInstance, PropTagIdentifier } from '../interfaces'
+import { metadata } from '../constants'
 
 export type Extras = {
   methods: object,
@@ -11,7 +12,7 @@ export type Extras = {
 }
 
 export const DEFAULT_EXTRAS: Extras = {
-  methods: {}, data: { }, computed: {},
+  methods: {}, data: {}, computed: {},
 }
 
 export class Mutation {
@@ -21,7 +22,7 @@ export class Mutation {
 
   constructor(
     private collection: CollectionFactory,
-    private instances: any[],
+    private instances: EuvInstance[] = [],
     private container: ContainerFactory,
   ) {
     this._prototype = collection.factory.prototype
@@ -40,8 +41,22 @@ export class Mutation {
       if (is.vueMethod(descriptor)) return tools.assignChild(tree, 'methods', next)
       return tools.assignChild(tree, 'data', next)
     }, DEFAULT_EXTRAS)
-  
-    extras.data = () => Object.assign({}, extras.data, this._depDatas)
+    const vueDatas = Object.assign({}, extras.data, this._depDatas)
+    
+    const tags: PropTagIdentifier[] = Reflect.getMetadata(metadata.PROPS_IDENTIFIER, this.collection.factory) || []
+    const props: object = tags.reduce((tree: object, next: PropTagIdentifier) => {
+      
+      if (vueDatas[next.name] !== undefined) {
+        next.value = vueDatas[next.name]
+        delete vueDatas[next.name]
+      }
+      return Object.assign(tree, {
+        [next.name]: { type: next.type, default: next.value },
+      })
+    }, {})
+    
+    extras.data = () => vueDatas
+    extras.props = props
   
     return Vue.component(this.collection.bindingName, Object.assign({}, extras, this.makeVueExtra()))
   }
@@ -63,9 +78,8 @@ export class Mutation {
   }
   
   private updateDependencies(): void {
-    if (!this.instances || !this.instances.length) return
     const shamFactory = new this.collection.factory(...this.instances)
-    
+  
     this._depDatas = Object.keys(shamFactory)
     .reduce((pre, key) => Object.assign(pre, key && shamFactory[key] ? { [key]: shamFactory[key] } : {}), {})
     

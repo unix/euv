@@ -7,6 +7,8 @@ export type EuvComponentOptions = {
   components?: string[],
 }
 
+export type EuvInstance = new (...args: any[]) => any
+
 export type ServiceTables = {
   [key: string]: new (...args: any[]) => any,
 }
@@ -59,6 +61,12 @@ export type EuvModules = new () => void
 export type InjectTagIdentifier = {
   name: string,
   index: number,
+}
+
+export type PropTagIdentifier = {
+  name: string,
+  type: any,
+  value?: any,
 }
 
 declare global {
