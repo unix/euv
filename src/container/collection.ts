@@ -10,8 +10,8 @@ export class Collection implements CollectionFactory {
   
   private _instance: any
   private _vueComponent: any
-  private dependencies: string[] = []
-  private optionalDeps: number[] = []
+  private _dependencies: string[] = []
+  readonly optionalDeps: number[] = []
   readonly componentOptions: ComponentOptions<Vue>
   
   get instance(): any {
@@ -50,10 +50,10 @@ export class Collection implements CollectionFactory {
   
   private init(): void {
     // not found deps
-    if (!this.dependencies.length) return this.updateCollection()
+    if (!this._dependencies.length) return this.updateCollection()
     
     // collect recursive deps
-    const instances: any[] = this.dependencies.map((dep, i) => {
+    const instances: any[] = this._dependencies.map((dep, i) => {
       const isOptional: boolean = this.optionalDeps
         && this.optionalDeps.length
         && this.optionalDeps.find(index => index === i) !== undefined
@@ -65,7 +65,7 @@ export class Collection implements CollectionFactory {
         return instance
       }
   
-      // optional dep
+      // optional inject
       this.container.optionalPool.create(dep)
       return this.container.optionalPool.link(dep)
     })
@@ -79,8 +79,6 @@ export class Collection implements CollectionFactory {
       return
     }
     this._vueComponent = new Mutation(this, instances, this.container).toVueComponent()
-    // this._vueComponent.prototype.$set(this._vueComponent.prototype.constructor, 'user', 1)
-    // console.log()
     this._instance = class None {}
   }
   
@@ -90,7 +88,7 @@ export class Collection implements CollectionFactory {
     const nativeTables: ServiceTables = this.container.nativeTables()
     const tableKeys: string[] = Object.keys(nativeTables)
   
-    this.dependencies = types.map((type, index) => {
+    this._dependencies = types.map((type, index) => {
       // is param type
       const name: string = tableKeys.find(key => nativeTables[key] === type)
       if (!!name) return name

@@ -13,7 +13,7 @@ export class WelcomeComponent {
   
   message: string = 'hello'
   computed: any = {
-    name: () => {
+    name: function(): number {
       return 123
     },
   }
@@ -27,7 +27,6 @@ export class WelcomeComponent {
   }
   
   created(): void {
-    // console.log('created', (<any>this).userw)
   }
   
   

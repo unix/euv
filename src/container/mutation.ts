@@ -10,6 +10,10 @@ export type Extras = {
   [key: string]: any,
 }
 
+export const DEFAULT_EXTRAS: Extras = {
+  methods: {}, data: { }, computed: {},
+}
+
 export class Mutation {
   
   private _prototype: any
@@ -35,9 +39,9 @@ export class Mutation {
       if (is.vueHook(key)) return Object.assign(tree, next)
       if (is.vueMethod(descriptor)) return tools.assignChild(tree, 'methods', next)
       return tools.assignChild(tree, 'data', next)
-    }, { methods: {}, data: { userw: 1 }, computed: {} })
+    }, DEFAULT_EXTRAS)
   
-    extras.data = () => Object.assign({}, extras.data, this._depDatas, { userw: '222' })
+    extras.data = () => Object.assign({}, extras.data, this._depDatas)
   
     return Vue.component(this.collection.bindingName, Object.assign({}, extras, this.makeVueExtra()))
   }
