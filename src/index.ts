@@ -8,4 +8,5 @@ export {
   Component,
   Injectable,
   Inject,
+  Props,
 } from './annotations'

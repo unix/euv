@@ -63,6 +63,12 @@ export type InjectTagIdentifier = {
   index: number,
 }
 
+export type PropTagIdentifier = {
+  name: string,
+  type: any,
+  value?: any,
+}
+
 declare global {
   interface Window {
     $Container?: any,

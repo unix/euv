@@ -9,7 +9,7 @@ import { VueConstructor } from 'vue/types/vue'
 export class Collection implements CollectionFactory {
   
   private _instance: EuvInstance
-  private _vueComponent: any
+  private _vueComponent: VueConstructor<Vue>
   private _dependencies: string[] = []
   readonly optionalDeps: number[] = []
   readonly componentOptions: ComponentOptions<Vue>
