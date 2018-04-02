@@ -113,6 +113,18 @@ i hope it can bring you a different experience.
   }
 ```
 
+- optional inject
+
+  ```typescript
+  @Injectable()
+  export class AuthService {
+
+    constructor(
+      @Optional() @Inject('user') private user: any = { token: 0 },
+    ) {
+    }
+  }
+  ```
 
 <br/>
 <br/>

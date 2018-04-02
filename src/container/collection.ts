@@ -10,10 +10,12 @@ export class Collection implements CollectionFactory {
   
   private _instance: any
   private _vueComponent: any
-  private dependencies: string[] = []
+  private _dependencies: string[] = []
+  readonly optionalDeps: number[] = []
   readonly componentOptions: ComponentOptions<Vue>
   
   get instance(): any {
+    
     if (!this._instance) this.init()
     return this._instance
   }
@@ -34,6 +36,7 @@ export class Collection implements CollectionFactory {
     private container: ContainerFactory,
   ) {
     this.componentOptions = Reflect.getMetadata(metadata.COMPONENT_IDENTIFIER, factory)
+    this.optionalDeps = Reflect.getMetadata(metadata.OPTIONAL_IDENTIFIER, factory)
     this.updateDependencies()
   }
   
@@ -46,8 +49,27 @@ export class Collection implements CollectionFactory {
   }
   
   private init(): void {
-    if (!this.dependencies.length) return this.updateCollection()
-    const instances: any[] = this.dependencies.map(dep => this.container.findOne(dep).instance)
+    // not found deps
+    if (!this._dependencies.length) return this.updateCollection()
+    
+    // collect recursive deps
+    const instances: any[] = this._dependencies.map((dep, i) => {
+      const isOptional: boolean = this.optionalDeps
+        && this.optionalDeps.length
+        && this.optionalDeps.find(index => index === i) !== undefined
+      
+      if (!isOptional) {
+        const instance = this.container.findOne(dep).instance
+        // include optional dep
+        this.container.optionalPool.has(dep) && this.container.optionalPool.patch(dep, instance)
+        return instance
+      }
+  
+      // optional inject
+      this.container.optionalPool.create(dep)
+      return this.container.optionalPool.link(dep)
+    })
+    
     return this.updateCollection(instances)
   }
   
@@ -66,7 +88,7 @@ export class Collection implements CollectionFactory {
     const nativeTables: ServiceTables = this.container.nativeTables()
     const tableKeys: string[] = Object.keys(nativeTables)
   
-    this.dependencies = types.map((type, index) => {
+    this._dependencies = types.map((type, index) => {
       // is param type
       const name: string = tableKeys.find(key => nativeTables[key] === type)
       if (!!name) return name

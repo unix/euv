@@ -113,6 +113,21 @@
   }
   ```
 
+- 可选注入
+
+  ```typescript
+  // 当出现互相依赖或不确定是否能加载时，可以使用 Optional
+  // 同时你可以为注入项提供默认值
+  @Injectable()
+    export class AuthService {
+
+      constructor(
+        @Optional() @Inject('user') private user: any = { token: 0 },
+      ) {
+      }
+    }
+  ```
+
 <br/>
 <br/>
 <br/>

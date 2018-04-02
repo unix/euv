@@ -15,6 +15,12 @@ export type ServicePool = {
   [key: string]: CollectionFactory,
 }
 
+export type OptionalPool = {
+  [key: string]: {
+    value: new (...args: any[]) => any,
+  },
+}
+
 export interface CollectionFactory {
   instance: any,
   vueComponent: VueConstructor<Vue>,
@@ -25,11 +31,19 @@ export interface CollectionFactory {
 }
 
 export interface ContainerFactory {
+  optionalPool: OptionalFactory,
   findOne: (serviceName: string) => CollectionFactory,
-  append: (name: string, serviceFactory: new (...args: any[]) => any) => void,
+  append: (name: string, factory: new (...args: any[]) => any) => void,
   has: (serviceName: string) => boolean,
   entries: () => Array<{ [key: string]: CollectionFactory }>,
   nativeTables: () => ServiceTables,
+}
+
+export interface OptionalFactory {
+  has: (name: string) => boolean,
+  create: (name: string) => void,
+  patch: (name: string, factory: new (...args: any[]) => any) => void,
+  link: (name: string) => any,
 }
 
 export type ModuleProviders = {

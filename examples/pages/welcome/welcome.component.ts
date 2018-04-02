@@ -2,6 +2,7 @@ import { Component } from '../../../src/index'
 import { Logger } from '../../services/log.service'
 import { User } from '../../services/user.service'
 import { Inject } from '../../../src/annotations'
+import { Optional } from '../../../src'
 declare const require: any
 
 @Component({
@@ -11,18 +12,33 @@ declare const require: any
 export class WelcomeComponent {
   
   message: string = 'hello'
+  computed: any = {
+    name: function(): number {
+      return 123
+    },
+  }
   
   constructor(
     // private logger: Logger,
-    private user: User,
+    @Optional() @Inject('user') private user: any = {},
     @Inject('logger') private logger: any,
   ) {
     this.message += '123'
-    console.log(this.logger)
   }
   
-  get name(): any {
-    return this.user.name
+  created(): void {
   }
+  
+  
+  
+  // get myname(): any {
+  //   // console.log(this)
+  //   console.log((<any>this))
+  //   console.log((<any>this).userw)
+  //   setTimeout(() => {
+  //     // console.log(this.userr)
+  //   }, 1000)
+  //   return this.user ? this.user.name : ''
+  // }
   
 }

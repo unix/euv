@@ -10,5 +10,8 @@ export const enum metadata {
   MODULE_PROVIDERS_IDENTIFIER = 'module_providers_identifier',
   
   INJECT_TOKEN_IDENTIFIER = 'inject_token_identifier',
+  
+  OPTIONAL_IDENTIFIER = 'optional_identifier',
+  
 }
 
