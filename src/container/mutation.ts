@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { tools, is } from '../utils'
 import { VueConstructor } from 'vue/types/vue'
-import { CollectionFactory, ContainerFactory, EuvComponentOptions } from '../interfaces'
+import { CollectionFactory, ContainerFactory, EuvComponentOptions, EuvInstance } from '../interfaces'
 
 export type Extras = {
   methods: object,
@@ -11,7 +11,7 @@ export type Extras = {
 }
 
 export const DEFAULT_EXTRAS: Extras = {
-  methods: {}, data: { }, computed: {},
+  methods: {}, data: {}, computed: {},
 }
 
 export class Mutation {
@@ -21,7 +21,7 @@ export class Mutation {
 
   constructor(
     private collection: CollectionFactory,
-    private instances: any[],
+    private instances: EuvInstance[],
     private container: ContainerFactory,
   ) {
     this._prototype = collection.factory.prototype

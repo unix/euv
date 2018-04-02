@@ -7,6 +7,8 @@ export type EuvComponentOptions = {
   components?: string[],
 }
 
+export type EuvInstance = new (...args: any[]) => any
+
 export type ServiceTables = {
   [key: string]: new (...args: any[]) => any,
 }

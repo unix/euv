@@ -1,4 +1,4 @@
-import { CollectionFactory, ContainerFactory, InjectTagIdentifier, ServiceTables } from '../interfaces'
+import { CollectionFactory, ContainerFactory, EuvInstance, InjectTagIdentifier, ServiceTables } from '../interfaces'
 import { ComponentOptions } from 'vue'
 import Vue from 'vue'
 import { metadata } from '../constants'
@@ -8,14 +8,13 @@ import { VueConstructor } from 'vue/types/vue'
 
 export class Collection implements CollectionFactory {
   
-  private _instance: any
+  private _instance: EuvInstance
   private _vueComponent: any
   private _dependencies: string[] = []
   readonly optionalDeps: number[] = []
   readonly componentOptions: ComponentOptions<Vue>
   
-  get instance(): any {
-    
+  get instance(): EuvInstance {
     if (!this._instance) this.init()
     return this._instance
   }
@@ -53,13 +52,13 @@ export class Collection implements CollectionFactory {
     if (!this._dependencies.length) return this.updateCollection()
     
     // collect recursive deps
-    const instances: any[] = this._dependencies.map((dep, i) => {
+    const dependentInstances: EuvInstance[] = this._dependencies.map((dep, i) => {
       const isOptional: boolean = this.optionalDeps
         && this.optionalDeps.length
         && this.optionalDeps.find(index => index === i) !== undefined
       
       if (!isOptional) {
-        const instance = this.container.findOne(dep).instance
+        const instance: EuvInstance = this.container.findOne(dep).instance
         // include optional dep
         this.container.optionalPool.has(dep) && this.container.optionalPool.patch(dep, instance)
         return instance
@@ -70,15 +69,15 @@ export class Collection implements CollectionFactory {
       return this.container.optionalPool.link(dep)
     })
     
-    return this.updateCollection(instances)
+    return this.updateCollection(dependentInstances)
   }
   
-  private updateCollection(instances?: any[]): void {
+  private updateCollection(dependentInstances?: EuvInstance[]): void {
     if (!this.isComponent()) {
-      this._instance = new this.factory(instances)
+      this._instance = new this.factory(dependentInstances)
       return
     }
-    this._vueComponent = new Mutation(this, instances, this.container).toVueComponent()
+    this._vueComponent = new Mutation(this, dependentInstances, this.container).toVueComponent()
     this._instance = class None {}
   }
   
