@@ -1,7 +1,7 @@
 import { metadata } from '../constants'
 import { PropTagIdentifier } from '../interfaces'
 
-export const Props = () => (target: any, key: string, index?: number): void => {
+export const Prop = () => (target: any, key: string, index?: number): void => {
   
   const prop: PropTagIdentifier = {
     name: key,
