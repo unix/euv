@@ -5,8 +5,10 @@
       "dom",
       "es2015"
     ],
+    "declaration": true,
     "module": "es2015",
     "moduleResolution": "node",
+    "declarationDir": "./dist/typings",
     "outDir": "./dist",
     "sourceMap": true,
     "removeComments": true,

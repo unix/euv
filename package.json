@@ -1,10 +1,10 @@
 {
   "name": "euv",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "typings": "./src/response.ts",
+  "typings": "./dist/typings/",
   "scripts": {
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "start": "env DEBUG=true webpack-dev-server --config build/webpack.example.ts --inline --progress --port=3000",
@@ -18,8 +18,7 @@
     }
   },
   "files": [
-    "dist",
-    "./src/response.ts"
+    "dist"
   ],
   "author": "WittBulter (nanazuimeng123@gmail.com)",
   "license": "MIT",
