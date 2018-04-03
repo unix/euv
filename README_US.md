@@ -6,6 +6,14 @@ i hope it can bring you a different experience.
 
 (construction-in-progress, welcome contribution)
 
+
+### example repo
+
+1. download [demo repo](https://github.com/DhyanaChina/euv-guide)： `git clone git@github.com:DhyanaChina/euv-guide.git`
+
+2. install deps and run it: `cd euv-guide && npm i && npm start`
+
+
 ### Guide
 
 - install

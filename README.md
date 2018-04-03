@@ -6,6 +6,13 @@
 
 [English doc](README_US.md)
 
+### 示例项目
+
+1. 下载[示例项目](https://github.com/DhyanaChina/euv-guide)： `git clone git@github.com:DhyanaChina/euv-guide.git`
+
+2. 安装依赖并运行: `cd euv-guide && npm i && npm start`
+
+
 ### 起步
 
 - 安装
