@@ -3,6 +3,7 @@ import { VueConstructor } from 'vue/types/vue'
 
 export type EuvComponentOptions = {
   template?: string,
+  templateUrl?: string,
   styles?: string[],
   components?: string[],
 }

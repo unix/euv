@@ -1,7 +1,5 @@
 import { Component } from '../../../src/index'
-import { Logger } from '../../services/log.service'
-import { User } from '../../services/user.service'
-import { Inject, Prop } from '../../../src/annotations'
+import { Inject } from '../../../src/annotations'
 import { Optional } from '../../../src'
 declare const require: any
 
